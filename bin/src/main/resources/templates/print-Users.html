@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>All Users</title>
+</head>
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<body>
+<div>
+        <div>
+            <div th:switch="${users}">
+                <a href="/home">
+                    <i>
+                        Home
+                    </i>
+                </a>
+                <div>
+                    <h2 th:case="null">No record found !!</h2>
+                    <div th:case="*">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Second Name</th>
+                                <th>Email</th>
+                                <th>Birth</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user : ${users}">
+                                <td th:text="${user.name}"></td>
+                                <td th:text="${user.secondName}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.birth}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
