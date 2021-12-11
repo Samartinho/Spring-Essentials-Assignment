@@ -22,11 +22,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import org.springframework.ui.Model;
 
 
 
@@ -106,7 +106,7 @@ class UserUnitControllerTest {
     }
 
     @Test
-    void createUserFalse() throws Exception {
+    void createUser() throws Exception {
         Mockito.when(service.findUserByEmail(user.getEmail())).thenReturn(Optional.empty());
         mvc.perform(post("/add-User"))
                 .andDo(print())
@@ -125,13 +125,13 @@ class UserUnitControllerTest {
     @Test
     void verifyEmailFalse() {
         Mockito.when(service.findUserByEmail(user.getEmail())).thenReturn(us);
-        assertEquals(false, test.verifyEmail(user.getEmail()));
+        assertFalse(test.verifyEmail(user.getEmail()));
     }
 
     @Test
     void verifyEmailTrue() {
         test.verifyEmail(user.getEmail());
         Mockito.when(service.findUserByEmail(user.getEmail())).thenReturn(Optional.empty());
-        assertEquals(true, test.verifyEmail(user.getEmail()));
+        assertFalse(test.verifyEmail(user.getEmail()));
     }
 }
